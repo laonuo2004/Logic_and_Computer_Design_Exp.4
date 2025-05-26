@@ -10,7 +10,7 @@
 module clk_divider_counter (
     input  wire        clk,               // 系统时钟 (100MHz)
     input  wire        reset_n,           // 异步复位信号 (低电平有效)
-    input  wire        timer_run_en,      // 计时运行使能 (来自FSM)
+    input  wire        timer_run_en,      // 计时运行使能 (来自FSM，即有限状态机)
     input  wire        timer_reset_cmd,   // 计时复位命令 (来自FSM, 高电平有效)
 
     output reg [3:0]   ms_bcd_tens_out,   // 毫秒显示的十位 (代表百毫秒, 0-9)
