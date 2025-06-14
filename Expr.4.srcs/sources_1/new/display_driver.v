@@ -77,19 +77,19 @@ module display_driver (
         case (digit_sel_counter)
             2'b00: begin // 显示十毫秒位 (最右边数码管)
                 current_bcd_val = ms_bcd_ones_in;
-                an_out          = 4'b1110; //选中第0位
+                an_out          = 4'b0001; //选中第0位
             end
             2'b01: begin // 显示百毫秒位
                 current_bcd_val = ms_bcd_tens_in;
-                an_out          = 4'b1101; //选中第1位
+                an_out          = 4'b0010; //选中第1位
             end
             2'b10: begin // 显示秒的个位
                 current_bcd_val = sec_bcd_ones_in;
-                an_out          = 4'b1011; //选中第2位
+                an_out          = 4'b0100; //选中第2位
             end
             2'b11: begin // 显示秒的十位 (最左边数码管)
                 current_bcd_val = sec_bcd_tens_in;
-                an_out          = 4'b0111; //选中第3位
+                an_out          = 4'b1000; //选中第3位
             end
             default: begin // 理论上不会到这里
                 current_bcd_val = 4'b0000; // 显示0
