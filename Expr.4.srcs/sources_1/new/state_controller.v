@@ -1,9 +1,8 @@
 //------------------------------------------------------------------------------
-// 模块名称: state_controller
-// 文件名称: state_controller.v
-// 功能描述: 实现短跑计时器的状态机控制逻辑。
-//           状态: IDLE, RUNNING, PAUSED, ALARM
-//           控制计时器的启停、复位以及报警状态。
+// 模块: state_controller
+// 功能: 实现短跑计时器的状态机控制逻辑。
+//       状态: IDLE, RUNNING, PAUSED, ALARM
+//       控制计时器的启停、复位以及报警状态。
 //------------------------------------------------------------------------------
 module state_controller (
     input  wire clk,                   // 系统时钟
@@ -28,9 +27,7 @@ module state_controller (
     reg [1:0] current_state;
     reg [1:0] next_state;
 
-    //----------------------------------------------------
     // 状态转移逻辑 (时序逻辑: 更新当前状态)
-    //----------------------------------------------------
     always @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
             current_state <= S_IDLE;
@@ -39,9 +36,7 @@ module state_controller (
         end
     end
 
-    //----------------------------------------------------
     // 次态逻辑 (组合逻辑: 根据当前状态和输入决定下一状态)
-    //----------------------------------------------------
     always @(*) begin
         next_state = current_state; // 默认保持当前状态
         case (current_state)
@@ -49,7 +44,7 @@ module state_controller (
                 if (key_a_pulse) begin
                     next_state = S_RUNNING;
                 end
-                // 按下C在IDLE状态下保持IDLE，复位命令已在输出逻辑中处理
+                // 按下C在IDLE状态下保持IDLE，复位命令将在输出逻辑中处理
             end
             S_RUNNING: begin
                 if (key_b_pulse) begin
@@ -78,14 +73,11 @@ module state_controller (
         endcase
     end
 
-    //----------------------------------------------------
     // 输出逻辑 (组合逻辑: 根据当前状态确定输出)
-    // Моore型状态机输出通常只依赖当前状态，但复位命令可以更灵活些
-    //----------------------------------------------------
     always @(*) begin
         // 默认输出
         timer_run_en_out    = 1'b0;
-        timer_reset_cmd_out = 1'b0; // 复位命令通常是脉冲或在特定状态下持续
+        timer_reset_cmd_out = 1'b0;
         alarm_active_out    = 1'b0;
 
         case (current_state)
