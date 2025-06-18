@@ -237,7 +237,7 @@
 根据上述模块的功能描述，我们可以将各个模块连接起来，形成完整的短跑计时器系统。系统的顶层模块将状态机控制器、计数器模块和显示驱动模块连接在一起，实现计时、控制和显示功能。下图展示了各个模块之间的连接关系。
 
 #figure(
-  image("assets/top_stopwatch.png"),
+  image("assets/top_stopwatch_circuit.png"),
   caption: "短跑计时器的电路模块图"
 )
 
